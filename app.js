@@ -51,7 +51,7 @@ app.post('/top10/mobiles', (req, res) => {
   console.log(req.query);
   var price = parseInt(req.body.price)*1.1;
   var gamer = (req.body.gamer=='y'|| req.body.gamer=='yes' )?true:false;
-    var get_mobiles_q = "SELECT DISTINCT mobile ,color, price , ram , memory ,battery ,camera_1 ,operating_system FROM mobiles_test  WHERE brand IS NOT NULL AND price <= "+price+" AND battery >= (CASE WHEN screen_size_inch >=6.3 THEN 4000 WHEN screen_size_inch >=6 THEN 3500 ELSE 3200 END) AND score >=( CASE WHEN "+price+" >= 15000 THEN 115 WHEN "+price+" >= 10000 AND "+price+" < 15000 THEN 100 ELSE 75 END ) AND ram >= ( CASE WHEN "+gamer+" THEN 4 ELSE 3 END) ORDER BY score DESC,ram DESC, camera_1 DESC, price DESC LIMIT 10";
+    var get_mobiles_q = "SELECT DISTINCT mobile,amazon_link ,color, price , ram , memory ,battery ,camera_1 ,operating_system FROM mobiles_test  WHERE brand IS NOT NULL AND price <= "+price+" AND battery >= (CASE WHEN screen_size_inch >=6.3 THEN 4000 WHEN screen_size_inch >=6 THEN 3500 ELSE 3200 END) AND score >=( CASE WHEN "+price+" >= 15000 THEN 115 WHEN "+price+" >= 10000 AND "+price+" < 15000 THEN 100 ELSE 75 END ) AND ram >= ( CASE WHEN "+gamer+" THEN 4 ELSE 3 END) ORDER BY score DESC,ram DESC, camera_1 DESC, price DESC LIMIT 10";
     console.log(get_mobiles_q);
     connection.query(get_mobiles_q,(err, result) => {
       if(err) {
@@ -88,5 +88,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(process.env.PORT || 8080)
+app.listen(process.env.PORT || 4000)
 module.exports = app;

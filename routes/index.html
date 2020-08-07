@@ -45,6 +45,9 @@
   -webkit-transform: scale(0.98);
   transform: scale(0.98);
 }
+a {
+	color:white;
+}
 </style>
 </head>
 <body>
@@ -111,7 +114,8 @@
     			for (x in myObj) {
 				  txt += '<tr class="row100">';
 					//txt += '<td class="column100 column1" data-column="column1">'+ i +'</td>';
-					txt += '<td class="column100 column1" data-column="column1">#'+i +" " + myObj[x].mobile +' ('+ myObj[x].color +')</td>';
+					var afflink = encodeURI(myObj[x].amazon_link + "&tag=73496-21");
+					txt += '<td class="column100 column1" data-column="column1"><a href="/redirect?url='+ afflink +'" target="_blank" >#'+i +" " + myObj[x].mobile +' ('+ myObj[x].color +')</a></td>';
 					//txt += '<td class="column100 column2" data-column="column2">'+ myObj[x].color +'</td>';
 					txt += '<td class="column100 column3" data-column="column3">'+ myObj[x].memory +' GB</td>';
 					txt += '<td class="column100 column4" data-column="column4">'+ myObj[x].ram +' GB</td>';
