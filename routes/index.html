@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V03</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+<style>
+#ss {
+  background-color: #fff;
+  border: 0;
+  outline: 0;
+  padding: 1.5rem 2rem;
+  font-size: 2rem;
+  font-family: monospace;
+  box-shadow: 0px 5px 10px #0057ab;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  cursor: pointer;
+  border-radius: 5px;
+  border-bottom: 4px solid #d9d9d9;
+}
+#ss:hover {
+  box-shadow: 0px 15px 25px -5px #0057ab;
+  -webkit-transform: scale(1.03);
+  transform: scale(1.03);
+}
+#ss:active {
+  box-shadow: 0px 4px 8px #0065c8;
+  -webkit-transform: scale(0.98);
+  transform: scale(0.98);
+}
+</style>
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100" >
+				<div class="table100 ver6 m-b-110" style="margin-bottom: 10px;" id="view">
+					
+					<table data-vertable="ver6">
+						<thead>
+							<tr class="row100 head">
+								
+								<th class="column100 column2" data-column="column2"><img src='/images/logo.PNG' width="60%"/></th>
+								<th class="column100 column4" data-column="column4">Storage</th>
+								<th class="column100 column5" data-column="column5">RAM</th>
+								<th class="column100 column6" data-column="column6">Camera</th>
+								<th class="column100 column7" data-column="column7">Battery</th>
+								<th class="column100 column8" data-column="column8">Chip</th>
+								<th class="column100 column8" data-column="column8">Price</th>
+							</tr>
+						</thead>
+						<tbody id="tbody">
+							<tr class="row100">
+								<td class="column100 column1" data-column="column1">Something</td>
+								<td class="column100 column2" data-column="column2">Went</td>
+								<td class="column100 column3" data-column="column3">Wrong</td>
+								<td class="column100 column4" data-column="column4">--</td>
+								<td class="column100 column5" data-column="column5">Contact</td>
+								<td class="column100 column6" data-column="column6">--</td>
+								<td class="column100 column7" data-column="column7">8514811865</td>
+								
+							</tr>
+
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<center><button id="ss">Copy Image</button>
+		</div>
+	</div>
+
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+	<script src="html2canvas.min.js"></script>
+	<script>
+		var inputPrice = prompt("What's your budget?", "25000");
+		var inputGamer = prompt("Are you a Gamer? type y or n", "y");
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+  		if (this.readyState == 4 && this.status == 200) {
+				myObj = JSON.parse(this.responseText);
+				console.log(myObj);
+				var txt="";
+				var i=1;
+    			for (x in myObj) {
+				  txt += '<tr class="row100">';
+					//txt += '<td class="column100 column1" data-column="column1">'+ i +'</td>';
+					txt += '<td class="column100 column1" data-column="column1">#'+i +" " + myObj[x].mobile +' ('+ myObj[x].color +')</td>';
+					//txt += '<td class="column100 column2" data-column="column2">'+ myObj[x].color +'</td>';
+					txt += '<td class="column100 column3" data-column="column3">'+ myObj[x].memory +' GB</td>';
+					txt += '<td class="column100 column4" data-column="column4">'+ myObj[x].ram +' GB</td>';
+					txt += '<td class="column100 column5" data-column="column5">'+ myObj[x].camera_1 +' MP</td>';
+					txt += '<td class="column100 column6" data-column="column6">'+ myObj[x].battery +' mAh</td>';
+					txt += '<td class="column100 column6" data-column="column6">'+ myObj[x].operating_system +'</td>';
+					txt += '<td class="column100 column6" data-column="column6">₹'+ myObj[x].price +'</td>';
+				txt += '</tr>';
+				i++;
+    			}
+    			document.getElementById("tbody").innerHTML = txt;
+  			}
+		}
+		xmlhttp.open("POST", "./mobiles");
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.send("price=" + inputPrice +"&gamer=" + inputGamer); 
+		//xmlhttp.send();
+
+
+		document.getElementById("ss").addEventListener("click", takeSS); 
+		function takeSS(){
+			html2canvas(document.getElementById("view")).then(function(canvas) {
+				//document.body.appendChild(canvas);
+				const ctx = canvas.getContext("2d");
+				//ctx.fillRect(0, 0, canvas.width, canvas.height);
+				//ctx.fillStyle = "#eee";
+				//ctx.fillRect(10, 10, 50, 50);
+				var link = document.createElement('a');
+  					link.download = 'mobiles_point.png';
+ 					link.href = canvas.toDataURL();
+  					link.click();
+				canvas.toBlob(function(blob) { 
+					const item = new ClipboardItem({ "image/png": blob });
+					navigator.clipboard.write([item]);
+					alert("Copied! Ctrl + v on Whatsapp Chat");
+				});
+			});
+		}
+		
+
+	</script>
+</body>
+</html>
